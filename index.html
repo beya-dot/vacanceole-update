@@ -372,6 +372,17 @@
       short_description: 'draft:short_description'
     };
 
+    const payload = {
+      project: 'vacanceole',
+      flow_id: getFlowId(),
+      prompt_type: currentPromptType,
+      version_name: versionName.value.trim(),
+      comment: versionComment.value.trim(),
+      prompt_text: promptText,
+      created_by: createdBy.value.trim()
+    };
+
+
     function getBaseUrl() { return baseUrl.value.trim().replace(/\/+$/, ''); }
     function getFlowId() { return flowId.value.trim(); }
 
