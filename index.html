@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,23 +32,6 @@
     .logo { width: 56px; height: 56px; object-fit: contain; background: transparent; padding: 0; }
     header h1 { font-size: 22px; }
     header p { opacity: 0.85; font-size: 13px; margin-top: 4px; }
-
-    .tabs { display: flex; gap: 10px; margin-bottom: 12px; }
-    .tab {
-      padding: 8px 14px;
-      border-radius: 999px;
-      border: 1px solid #2a2a4a;
-      background: #16213e;
-      color: #a5b4fc;
-      cursor: pointer;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .tab.active {
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white;
-      border-color: transparent;
-    }
 
     .controls-panel { margin-bottom: 24px; }
     .controls-grid { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
@@ -116,7 +100,22 @@
     .card.updated pre { background: #142a4a; }
 
     .card pre,
-    .card textarea { min-height: 220px; height: auto; overflow: visible; white-space: pre-wrap; word-wrap: break-word; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; background: #1a1a2e; border-radius: 6px; padding: 12px; color: #ddd; border: 1px solid #2a2a4a; resize: none; }
+    .card textarea {
+      min-height: 220px;
+      height: auto;
+      overflow: visible;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      background: #1a1a2e;
+      border-radius: 6px;
+      padding: 12px;
+      color: #ddd;
+      border: 1px solid #2a2a4a;
+      resize: none;
+    }
 
     .card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
 
@@ -283,7 +282,7 @@
           </div>
           <pre id="origSD">Waiting for flow…</pre>
         </div>
-        <div class="card updated">
+        <div class="card.updated">
           <div class="card-header">
             <h3>Updated SD</h3>
             <button class="btn-copy" onclick="copyFrom('updatedSD', this)">📋</button>
@@ -371,17 +370,6 @@
       long_description: 'draft:long_description',
       short_description: 'draft:short_description'
     };
-
-    const payload = {
-      project: 'vacanceole',
-      flow_id: getFlowId(),
-      prompt_type: currentPromptType,
-      version_name: versionName.value.trim(),
-      comment: versionComment.value.trim(),
-      prompt_text: promptText,
-      created_by: createdBy.value.trim()
-    };
-
 
     function getBaseUrl() { return baseUrl.value.trim().replace(/\/+$/, ''); }
     function getFlowId() { return flowId.value.trim(); }
@@ -573,7 +561,7 @@
         });
         if (missing.length) {
           const available = nodes.map(n => n.id).filter(Boolean).slice(0, 40);
-          setDebug(`Missing prompt node IDs: ${missing.join(', ')}\\nAvailable node IDs (first 40): ${available.join(', ')}`);
+          setDebug(`Missing prompt node IDs: ${missing.join(', ')}\nAvailable node IDs (first 40): ${available.join(', ')}`);
         }
         autoResizeAllPrompts();
         setStatus('success', 'Original prompts loaded');
@@ -645,8 +633,17 @@
       }
     }
 
-    function openSaveModal(type) { currentPromptType = type; versionName.value = ''; versionComment.value = ''; saveModal.style.display = 'flex'; }
-    function closeSaveModal() { saveModal.style.display = 'none'; currentPromptType = null; }
+    function openSaveModal(type) {
+      currentPromptType = type;
+      versionName.value = '';
+      versionComment.value = '';
+      saveModal.style.display = 'flex';
+    }
+
+    function closeSaveModal() {
+      saveModal.style.display = 'none';
+      currentPromptType = null;
+    }
 
     async function savePromptVersion() {
       if (!currentPromptType) return;
@@ -655,11 +652,23 @@
       if (!promptText) { setStatus('error', 'Prompt is empty'); closeSaveModal(); return; }
       if (el) saveDraft(currentPromptType, promptText);
 
-      const payload = { flow_id: getFlowId(), prompt_type: currentPromptType, version_name: versionName.value.trim(), comment: versionComment.value.trim(), prompt_text: promptText, created_by: createdBy.value.trim() };
+      const payload = {
+        project: 'vacanceole',
+        flow_id: getFlowId(),
+        prompt_type: currentPromptType,
+        version_name: versionName.value.trim(),
+        comment: versionComment.value.trim(),
+        prompt_text: promptText,
+        created_by: createdBy.value.trim()
+      };
 
       try {
         const body = new URLSearchParams(payload);
-        const res = await fetch(GAS_URL, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' }, body });
+        const res = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body
+        });
         const raw = await res.text();
         if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.substring(0, 500)}`);
         setStatus('success', '✅ Saved!');
@@ -677,7 +686,6 @@
         autoResize(el);
         const t = Object.keys(promptTypeMap).find(k => promptTypeMap[k] === id);
         if (t) saveDraft(t, el.value);
-       
       });
     });
 
@@ -692,3 +700,4 @@
   </script>
 </body>
 </html>
+```
