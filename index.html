@@ -2,128 +2,223 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vacancéole Content Update Tester</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vacanceole Content Update Tester</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #1a1a2e; color: #eee; min-height: 100vh; padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+      padding: 20px;
     }
     .container { max-width: 1500px; margin: 0 auto; }
     header {
       background: linear-gradient(135deg, #4a6bd8 0%, #7a56b3 50%, #b14a7a 100%);
-      color: white; padding: 24px 30px; border-radius: 12px;
-      display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+      color: white;
+      padding: 24px 30px;
+      border-radius: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
     }
     .header-left { display: flex; align-items: center; gap: 12px; }
     .logo { width: 56px; height: 56px; object-fit: contain; }
     header h1 { font-size: 22px; }
     header p { opacity: 0.85; font-size: 13px; margin-top: 4px; }
+
     .controls-panel { margin-bottom: 24px; }
     .controls-grid { display: grid; grid-template-columns: 320px 1fr; gap: 16px; align-items: start; }
     .controls-col { display: flex; flex-direction: column; gap: 8px; }
     .controls-col.left-controls { gap: 0; }
-    .controls-box {
-      background: #16213e; border-radius: 10px; padding: 18px 20px; border: 1px solid #202b4a;
-    }
+    .controls-box { background: #16213e; border-radius: 10px; padding: 18px 20px; border: 1px solid #202b4a; }
     .left-actions { display: flex; flex-direction: column; gap: 2px; margin-top: 0; }
+
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
     .form-group input, .form-group select {
-      padding: 9px 12px; background: #0f3460; border: 1px solid #2a2a4a;
-      border-radius: 6px; color: #eee; font-size: 13px;
+      padding: 9px 12px;
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      border-radius: 6px;
+      color: #eee;
+      font-size: 13px;
     }
     .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
+
     .fg-base { flex: 2; min-width: 240px; }
     .fg-flow { flex: 1; min-width: 220px; }
     .fg-api { flex: 2; min-width: 240px; }
     .fg-auth { flex: 1; min-width: 200px; }
+
     button {
-      padding: 10px 24px; border: none; border-radius: 6px;
-      font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      padding: 10px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
     }
     button:hover { transform: translateY(-1px); }
     button:active { transform: translateY(0); }
     button:disabled { opacity: 0.45; cursor: default; transform: none; }
+
     .btn-run {
       background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white; padding: 10px 36px; font-size: 14px;
+      color: white;
+      padding: 10px 36px;
+      font-size: 14px;
     }
-    .btn-run:hover:not(:disabled) { box-shadow: 0 4px 15px rgba(102,126,234,0.4); }
+    .btn-run:hover:not(:disabled) { box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4); }
     .btn-cancel { background: #5f1e1e; color: #ef9a9a; padding: 10px 24px; display: none; }
     .btn-cancel:hover { background: #7a2828; }
     .btn-load { background: transparent; color: #667eea; border: 1px solid #667eea; padding: 10px 18px; }
-    .btn-load:hover { background: rgba(102,126,234,0.1); }
+    .btn-load:hover { background: rgba(102, 126, 234, 0.1); }
     .btn-toggle { background: transparent; color: #f0c040; border: 1px solid #f0c040; padding: 8px 14px; }
-    .btn-toggle.active { background: rgba(240,192,64,0.15); box-shadow: 0 0 8px rgba(240,192,64,0.25); }
+    .btn-toggle.active { background: rgba(240, 192, 64, 0.15); box-shadow: 0 0 8px rgba(240, 192, 64, 0.25); }
     .btn-save {
-      background: transparent; color: #81c784; border: 1px solid #81c784;
-      padding: 6px 10px; font-size: 11px; border-radius: 6px;
+      background: transparent;
+      color: #81c784;
+      border: 1px solid #81c784;
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 6px;
     }
-    .btn-save:hover { background: rgba(129,199,132,0.12); }
+    .btn-save:hover { background: rgba(129, 199, 132, 0.12); }
     .btn-copy {
-      background: transparent; color: #a5b4fc; border: 1px solid #3a4b6f;
-      padding: 6px 10px; font-size: 11px; border-radius: 6px;
+      background: transparent;
+      color: #a5b4fc;
+      border: 1px solid #3a4b6f;
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 6px;
     }
-    .btn-copy:hover { background: rgba(165,180,252,0.12); }
-    .btn-copy.copied { color: #81c784; border-color: #81c784; background: rgba(129,199,132,0.12); }
+    .btn-copy:hover { background: rgba(165, 180, 252, 0.12); }
+    .btn-copy.copied { color: #81c784; border-color: #81c784; background: rgba(129, 199, 132, 0.12); }
+
     .version-select {
-      background: #0f3460; border: 1px solid #2a2a4a; color: #ddd;
-      border-radius: 6px; font-size: 11px; padding: 6px 8px;
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      color: #ddd;
+      border-radius: 6px;
+      font-size: 11px;
+      padding: 6px 8px;
+      max-width: 220px;
     }
+
     .status-bar {
-      width: 100%; padding: 10px 16px; border-radius: 6px;
-      font-size: 13px; display: none; margin-top: 8px;
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+      margin-top: 8px;
     }
-    .status-bar.loading { display: block; background: rgba(33,150,243,0.15); color: #64b5f6; }
-    .status-bar.success { display: block; background: rgba(76,175,80,0.15); color: #81c784; }
-    .status-bar.error { display: block; background: rgba(244,67,54,0.15); color: #ef9a9a; }
+    .status-bar.loading { display: block; background: rgba(33, 150, 243, 0.15); color: #64b5f6; }
+    .status-bar.success { display: block; background: rgba(76, 175, 80, 0.15); color: #81c784; }
+    .status-bar.error { display: block; background: rgba(244, 67, 54, 0.15); color: #ef9a9a; }
+
     .section-title {
-      color: #a5b4fc; font-size: 16px; margin: 28px 0 12px 0;
-      display: flex; align-items: center; gap: 8px;
+      color: #a5b4fc;
+      font-size: 16px;
+      margin: 28px 0 12px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+
     .card {
-      background: #0f3460; border: 1px solid #2a2a4a; border-radius: 10px;
-      padding: 16px; display: flex; flex-direction: column; align-self: start;
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-self: start;
     }
     .card h3 { font-size: 13px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
     .card.original h3 { color: #64b5f6; }
     .card.updated h3 { color: #81c784; }
     .card.updated pre { background: #142a4a; }
+
     .card pre, .card textarea {
-      min-height: 220px; height: auto; overflow: visible; white-space: pre-wrap; word-wrap: break-word;
-      font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6;
-      background: #1a1a2e; border-radius: 6px; padding: 12px; color: #ddd;
-      border: 1px solid #2a2a4a; resize: none;
+      min-height: 220px;
+      height: auto;
+      overflow: visible;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-family: "Courier New", monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      background: #1a1a2e;
+      border-radius: 6px;
+      padding: 12px;
+      color: #ddd;
+      border: 1px solid #2a2a4a;
+      resize: none;
     }
+
     .card-header {
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 10px; margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
     }
-    .fee-highlight { background: rgba(240,192,64,0.25); color: #f0c040; border-radius: 3px; padding: 0 2px; }
+
+    .fee-highlight { background: rgba(240, 192, 64, 0.25); color: #f0c040; border-radius: 3px; padding: 0 2px; }
+
     .debug-panel {
-      width: 100%; margin-top: 8px; background: #0f3460; border: 1px solid #2a2a4a;
-      border-radius: 8px; padding: 10px; font-family: 'Courier New', monospace;
-      font-size: 12px; color: #ddd; display: none; white-space: pre-wrap;
-      max-height: 260px; overflow: auto;
+      width: 100%;
+      margin-top: 8px;
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      border-radius: 8px;
+      padding: 10px;
+      font-family: "Courier New", monospace;
+      font-size: 12px;
+      color: #ddd;
+      display: none;
+      white-space: pre-wrap;
+      max-height: 260px;
+      overflow: auto;
     }
+
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(10,12,24,.6);
-      display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 12, 24, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
     }
     .modal {
-      width: 100%; max-width: 520px; background: #16213e; border: 1px solid #2a2a4a;
-      border-radius: 12px; padding: 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+      width: 100%;
+      max-width: 520px;
+      background: #16213e;
+      border: 1px solid #2a2a4a;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
     }
     .modal h3 { color: #a5b4fc; margin-bottom: 8px; font-size: 16px; }
     .modal .form-group input, .modal .form-group textarea {
-      background: #0f3460; border: 1px solid #2a2a4a; color: #eee;
-      border-radius: 6px; padding: 10px 12px; font-size: 13px;
+      background: #0f3460;
+      border: 1px solid #2a2a4a;
+      color: #eee;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 13px;
     }
     .modal .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 12px; }
     .btn-secondary { background: #2a2a4a; color: #ddd; border: 1px solid #3a3a5a; }
+
     @media (max-width: 900px) {
       .controls-grid { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
@@ -137,14 +232,13 @@
     <div class="header-left">
       <img class="logo" src="jetstream-white.png" alt="Jetstream" />
       <div>
-        <h1>🏨 Vacancéole Content Update Tester</h1>
-        <p>Property Content — Langflow Execution UI</p>
+        <h1>🏨 Vacanceole Content Update Tester</h1>
+        <p>Property Content - Langflow Execution UI</p>
       </div>
     </div>
     <span id="timer" style="font-size:13px; opacity:0.8;"></span>
   </header>
 
-  <!-- Controls -->
   <div class="controls-panel">
     <div class="controls-grid">
       <div class="controls-col controls-box left-controls">
@@ -188,7 +282,6 @@
     <div id="debug" class="debug-panel"></div>
   </div>
 
-  <!-- Editable Prompts -->
   <div class="section-title">🧠 Editable Prompts</div>
   <div class="grid">
     <div class="card">
@@ -226,7 +319,6 @@
     </div>
   </div>
 
-  <!-- Test Results -->
   <div class="section-title">
     🧪 Test Results
     <button class="btn-toggle" id="highlightBtn" style="margin-left:8px;">🔎 Highlight Terms</button>
@@ -234,25 +326,24 @@
 
   <div class="section-title">🏠 Home Truth (HT)</div>
   <div class="grid">
-    <div class="card original"><div class="card-header"><h3>Original HT</h3><button class="btn-copy" onclick="copyFrom('origHT', this)">📋</button></div><pre id="origHT">Waiting for flow…</pre></div>
-    <div class="card updated"><div class="card-header"><h3>Updated HT</h3><button class="btn-copy" onclick="copyFrom('updatedHT', this)">📋</button></div><pre id="updatedHT">Waiting for flow…</pre></div>
+    <div class="card original"><div class="card-header"><h3>Original HT</h3><button class="btn-copy" onclick="copyFrom('origHT', this)">📋</button></div><pre id="origHT">Waiting for flow...</pre></div>
+    <div class="card updated"><div class="card-header"><h3>Updated HT</h3><button class="btn-copy" onclick="copyFrom('updatedHT', this)">📋</button></div><pre id="updatedHT">Waiting for flow...</pre></div>
   </div>
 
   <div class="section-title">📝 Long Description (LD)</div>
   <div class="grid">
-    <div class="card original"><div class="card-header"><h3>Original LD</h3><button class="btn-copy" onclick="copyFrom('origLD', this)">📋</button></div><pre id="origLD">Waiting for flow…</pre></div>
-    <div class="card updated"><div class="card-header"><h3>Updated LD</h3><button class="btn-copy" onclick="copyFrom('updatedLD', this)">📋</button></div><pre id="updatedLD">Waiting for flow…</pre></div>
+    <div class="card original"><div class="card-header"><h3>Original LD</h3><button class="btn-copy" onclick="copyFrom('origLD', this)">📋</button></div><pre id="origLD">Waiting for flow...</pre></div>
+    <div class="card updated"><div class="card-header"><h3>Updated LD</h3><button class="btn-copy" onclick="copyFrom('updatedLD', this)">📋</button></div><pre id="updatedLD">Waiting for flow...</pre></div>
   </div>
 
   <div class="section-title">📝 Short Description (SD)</div>
   <div class="grid">
-    <div class="card original"><div class="card-header"><h3>Original SD</h3><button class="btn-copy" onclick="copyFrom('origSD', this)">📋</button></div><pre id="origSD">Waiting for flow…</pre></div>
-    <div class="card updated"><div class="card-header"><h3>Updated SD</h3><button class="btn-copy" onclick="copyFrom('updatedSD', this)">📋</button></div><pre id="updatedSD">Waiting for flow…</pre></div>
+    <div class="card original"><div class="card-header"><h3>Original SD</h3><button class="btn-copy" onclick="copyFrom('origSD', this)">📋</button></div><pre id="origSD">Waiting for flow...</pre></div>
+    <div class="card updated"><div class="card-header"><h3>Updated SD</h3><button class="btn-copy" onclick="copyFrom('updatedSD', this)">📋</button></div><pre id="updatedSD">Waiting for flow...</pre></div>
   </div>
 
 </div>
 
-<!-- Save Modal -->
 <div id="saveModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="saveTitle">
   <div class="modal">
     <h3 id="saveTitle">Save Prompt Version</h3>
@@ -276,196 +367,228 @@
 </div>
 
 <script>
-/* ── Config ───────────────────────────────────────────────── */
-const GAS_URL = 'https://script.google.com/macros/s/AKfycbx-_bKf-L-XtkP0aaKWaZN3YeQgl_r_Zdn9zdyQoBwT4EoA3sC11NmHcRCb2XOQdtWQXA/exec';
+const GAS_URL = "https://script.google.com/macros/s/AKfycbx-_bKf-L-XtkP0aaKWaZN3YeQgl_r_Zdn9zdyQoBwT4EoA3sC11NmHcRCb2XOQdtWQXA/exec";
 
-const entityId  = document.getElementById('entityId');
-const baseUrl   = document.getElementById('baseUrl');
-const flowId    = document.getElementById('flowId');
-const apiKey    = document.getElementById('apiKey');
-const authMode  = document.getElementById('authMode');
-const runBtn    = document.getElementById('runBtn');
-const cancelBtn = document.getElementById('cancelBtn');
-const loadBtn   = document.getElementById('loadBtn');
-const highlightBtn = document.getElementById('highlightBtn');
-const status    = document.getElementById('status');
-const debug     = document.getElementById('debug');
-const timer     = document.getElementById('timer');
-const saveModal     = document.getElementById('saveModal');
-const versionName   = document.getElementById('versionName');
-const versionComment = document.getElementById('versionComment');
-const createdBy     = document.getElementById('createdBy');
-const closeModal    = document.getElementById('closeModal');
-const saveVersionBtn = document.getElementById('saveVersionBtn');
+const entityId = document.getElementById("entityId");
+const baseUrl = document.getElementById("baseUrl");
+const flowId = document.getElementById("flowId");
+const apiKey = document.getElementById("apiKey");
+const authMode = document.getElementById("authMode");
+const runBtn = document.getElementById("runBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+const loadBtn = document.getElementById("loadBtn");
+const highlightBtn = document.getElementById("highlightBtn");
+const status = document.getElementById("status");
+const debug = document.getElementById("debug");
+const timer = document.getElementById("timer");
+const saveModal = document.getElementById("saveModal");
+const versionName = document.getElementById("versionName");
+const versionComment = document.getElementById("versionComment");
+const createdBy = document.getElementById("createdBy");
+const closeModal = document.getElementById("closeModal");
+const saveVersionBtn = document.getElementById("saveVersionBtn");
 
-/* ── Prompt & Output Config ───────────────────────────────── */
 const PROMPTS = [
-  { id: 'htPrompt',  type: 'home_truth',        node: 'Prompt Template-9r1K1' },
-  { id: 'ldPrompt',  type: 'long_description',   node: 'Prompt Template-AVk4F' },
-  { id: 'sdPrompt',  type: 'short_description',  node: 'Prompt Template-Bxpqm' }
+  { id: "htPrompt", type: "home_truth", node: "Prompt Template-9r1K1" },
+  { id: "ldPrompt", type: "long_description", node: "Prompt Template-AVk4F" },
+  { id: "sdPrompt", type: "short_description", node: "Prompt Template-Bxpqm" }
 ];
 
 const OUTPUTS = [
-  { id: 'origHT',    componentId: 'ChatOutput-Fp0ki' },
-  { id: 'updatedHT', componentId: 'ChatOutput-18d66' },
-  { id: 'origLD',    componentId: 'ChatOutput-1WD38' },
-  { id: 'updatedLD', componentId: 'ChatOutput-iGPZo' },
-  { id: 'origSD',    componentId: 'ChatOutput-h78H1' },
-  { id: 'updatedSD', componentId: 'ChatOutput-z0fR9' }
+  { id: "origHT", componentId: "ChatOutput-Fp0ki" },
+  { id: "updatedHT", componentId: "ChatOutput-18d66", keys: ["updated", "ht"] },
+  { id: "origLD", componentId: "ChatOutput-1WD38" },
+  { id: "updatedLD", componentId: "ChatOutput-iGPZo" },
+  { id: "origSD", componentId: "ChatOutput-h78H1" },
+  { id: "updatedSD", componentId: "ChatOutput-z0fR9", keys: ["updated", "shortdescription"] }
 ];
 
 const promptTypeMap = {
-  home_truth: 'htPrompt',
-  long_description: 'ldPrompt',
-  short_description: 'sdPrompt'
+  home_truth: "htPrompt",
+  long_description: "ldPrompt",
+  short_description: "sdPrompt"
 };
 
-/* ── Version storage keys (same pattern as junk-fee-removal) */
 const draftKeys = {
-  home_truth: 'draft:home_truth',
-  long_description: 'draft:long_description',
-  short_description: 'draft:short_description'
+  home_truth: "draft:home_truth",
+  long_description: "draft:long_description",
+  short_description: "draft:short_description"
 };
+
 const versionKeys = {
-  home_truth: 'versions:home_truth',
-  long_description: 'versions:long_description',
-  short_description: 'versions:short_description'
+  home_truth: "versions:home_truth",
+  long_description: "versions:long_description",
+  short_description: "versions:short_description"
 };
 
-/* ── State ────────────────────────────────────────────────── */
-let isRunning = false, ignoreResult = false, timerInterval = null;
-let currentPromptType = null, highlightOn = false;
+let isRunning = false;
+let ignoreResult = false;
+let timerInterval = null;
+let currentPromptType = null;
+let highlightOn = false;
 
-/* ── Helpers ──────────────────────────────────────────────── */
-function getBaseUrl() { return baseUrl.value.trim().replace(/\\/+$/, ''); }
+function getBaseUrl() { return baseUrl.value.trim().replace(/\/+$/, ""); }
 function getFlowId() { return flowId.value.trim(); }
+function normalize(s) { return (s || "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
 
 function setStatus(type, msg) {
-  status.textContent = msg;
-  status.className = 'status-bar' + (type ? ' ' + type : '');
-}
-function setDebug(msg) {
-  if (!msg) { debug.style.display = 'none'; debug.textContent = ''; return; }
-  debug.style.display = 'block'; debug.textContent = msg;
-}
-function buildAuthHeaders(key) {
-  return authMode.value === 'bearer'
-    ? { Authorization: `Bearer ${key}` }
-    : { 'x-api-key': key };
+  status.textContent = msg || "";
+  status.className = "status-bar" + (type ? " " + type : "");
 }
 
-function normalize(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+function setDebug(msg) {
+  if (!msg) {
+    debug.style.display = "none";
+    debug.textContent = "";
+    return;
+  }
+  debug.style.display = "block";
+  debug.textContent = msg;
+}
+
+function buildAuthHeaders(key) {
+  return authMode.value === "bearer"
+    ? { Authorization: `Bearer ${key}` }
+    : { "x-api-key": key };
+}
+
+function extractOutputText(out) {
+  if (!out) return "";
+  return (
+    out?.results?.message?.text ||
+    out?.results?.message?.content ||
+    out?.results?.text ||
+    out?.results?.output ||
+    out?.message?.text ||
+    out?.message?.content ||
+    ""
+  );
+}
 
 function findOutput(outputs, spec) {
+  if (!Array.isArray(outputs) || !outputs.length) return "-";
+
   if (spec.componentId) {
-    const match = outputs.find(o => o.component_id === spec.componentId);
-    return match?.results?.message?.text || '—';
+    const match = outputs.find(o => normalize(o.component_id) === normalize(spec.componentId));
+    const text = extractOutputText(match);
+    if (text) return text;
   }
-  return '—';
+
+  if (Array.isArray(spec.keys) && spec.keys.length) {
+    const keys = spec.keys.map(normalize);
+    const match = outputs.find(o => {
+      const name = normalize(o.component_display_name);
+      const id = normalize(o.component_id);
+      return keys.every(k => name.includes(k) || id.includes(k));
+    });
+    const text = extractOutputText(match);
+    if (text) return text;
+  }
+
+  return "-";
 }
 
 function setOutput(id, text) {
   const el = document.getElementById(id);
-  el.dataset.raw = text || '';
-  if (highlightOn) el.innerHTML = highlightTerms(el.dataset.raw);
-  else el.textContent = el.dataset.raw || '—';
+  if (!el) return;
+  el.dataset.raw = text || "";
+  if (highlightOn) {
+    el.innerHTML = highlightTerms(el.dataset.raw);
+  } else {
+    el.textContent = el.dataset.raw || "-";
+  }
 }
 
 function highlightTerms(text) {
-  if (!text) return '';
+  if (!text) return "";
   const terms = [
-    'pack','sérénité','serenity','cleaning','bed','beds','linen','linens',
-    'bedding','towels','towel','sheets','sheet','made on arrival',
-    '€','euro','fee','pack ménage','pack linge','kit'
+    "pack", "serenite", "serenity", "cleaning", "bed", "beds", "linen", "linens",
+    "bedding", "towels", "towel", "sheets", "sheet", "made on arrival",
+    "euro", "fee", "pack menage", "pack linge", "kit"
   ];
-  const escaped = terms.map(k => k.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')).sort((a,b) => b.length - a.length);
-  const re = new RegExp(`\\\\b(${escaped.join('|')})\\\\b`, 'gi');
-  return text.replace(re, '<span class="fee-highlight">$1</span>')
-             .replace(/€/g, '<span class="fee-highlight">€</span>');
+  const escaped = terms
+    .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+    .sort((a, b) => b.length - a.length);
+  const wordRe = new RegExp(`\\b(${escaped.join("|")})\\b`, "gi");
+  return text
+    .replace(wordRe, "<span class=\"fee-highlight\">$1</span>")
+    .replace(/€/g, "<span class=\"fee-highlight\">€</span>");
+}
+
+function toggleHighlight() {
+  highlightOn = !highlightOn;
+  highlightBtn.classList.toggle("active", highlightOn);
+  OUTPUTS.forEach(o => {
+    const el = document.getElementById(o.id);
+    const raw = el ? (el.dataset.raw || el.textContent || "") : "";
+    setOutput(o.id, raw);
+  });
 }
 
 function autoResize(el) {
   if (!el) return;
-  el.style.height = 'auto';
+  el.style.height = "auto";
   el.style.height = `${el.scrollHeight}px`;
 }
+
 function autoResizeAllPrompts() {
-  ['htPrompt','ldPrompt','sdPrompt'].forEach(id => {
+  ["htPrompt", "ldPrompt", "sdPrompt"].forEach(id => {
     const el = document.getElementById(id);
-    if (el && el.offsetParent !== null) autoResize(el);
+    if (el) autoResize(el);
   });
 }
 
-/* ── Clipboard ────────────────────────────────────────────── */
+function startTimer() {
+  const start = Date.now();
+  timer.textContent = "⏱ 0s";
+  timerInterval = setInterval(() => {
+    timer.textContent = `⏱ ${Math.round((Date.now() - start) / 1000)}s`;
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = null;
+}
+
 async function copyFrom(id, btn) {
   const el = document.getElementById(id);
   if (!el) return;
-  const text = el.value !== undefined ? el.value : (el.dataset.raw || el.textContent || '');
-  const restore = () => { if (btn) { btn.textContent = '📋'; btn.classList.remove('copied'); } };
-  try { await navigator.clipboard.writeText(text); } catch {
-    const ta = document.createElement('textarea'); ta.value = text;
-    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+  const text = el.value !== undefined ? el.value : (el.dataset.raw || el.textContent || "");
+
+  const restore = () => {
+    if (!btn) return;
+    btn.textContent = "📋";
+    btn.classList.remove("copied");
+  };
+
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
   }
-  if (btn) { btn.textContent = '📋 Copied!'; btn.classList.add('copied'); setTimeout(restore, 1200); }
-  setStatus('success', 'Copied!');
+
+  if (btn) {
+    btn.textContent = "📋 Copied!";
+    btn.classList.add("copied");
+    setTimeout(restore, 1200);
+  }
+  setStatus("success", "Copied");
 }
 
-/* ── Draft persistence (localStorage) ─────────────────────── */
 function saveDraft(promptType, val) {
-  const k = draftKeys[promptType]; if (k) localStorage.setItem(k, val || '');
+  const key = draftKeys[promptType];
+  if (key) localStorage.setItem(key, val || "");
 }
+
 function loadDraft(promptType) {
-  const k = draftKeys[promptType]; return k ? (localStorage.getItem(k) || '') : '';
-}
-
-/* ── Version persistence (localStorage + GAS) ─────────────── */
-function loadVersions(promptType) {
-  const k = versionKeys[promptType]; if (!k) return [];
-  try { return JSON.parse(localStorage.getItem(k) || '[]') || []; } catch { return []; }
-}
-function saveVersions(promptType, versions) {
-  const k = versionKeys[promptType]; if (k) localStorage.setItem(k, JSON.stringify(versions || []));
-}
-
-function formatVersionLabel(v) {
-  const name = v.version_name || v.versionName || 'Untitled';
-  const by = (v.created_by || v.createdBy) ? ` - ${v.created_by || v.createdBy}` : '';
-  const dt = v.saved_at ? ` @ ${new Date(v.saved_at).toLocaleString()}` : '';
-  return `${name}${by}${dt}`;
-}
-
-function refreshVersionMenus() {
-  Object.keys(versionKeys).forEach(type => {
-    const select = document.getElementById(`versions-${type}`);
-    if (!select) return;
-    const versions = loadVersions(type);
-    const current = select.value;
-    select.innerHTML = '';
-    const opt = document.createElement('option');
-    opt.value = ''; opt.textContent = 'Load saved version...';
-    select.appendChild(opt);
-    versions.slice().reverse().forEach(v => {
-      const o = document.createElement('option');
-      o.value = v.id;
-      o.textContent = formatVersionLabel(v);
-      select.appendChild(o);
-    });
-    if (current) select.value = current;
-  });
-}
-
-function loadVersionIntoPrompt(promptType, versionId) {
-  if (!versionId) return;
-  const versions = loadVersions(promptType);
-  const v = versions.find(x => x.id === versionId);
-  if (!v) return;
-  const el = document.getElementById(promptTypeMap[promptType]);
-  if (el) {
-    el.value = v.prompt_text || v.promptText || '';
-    saveDraft(promptType, el.value);
-    autoResize(el);
-    setStatus('success', 'Loaded saved version');
-  }
+  const key = draftKeys[promptType];
+  return key ? (localStorage.getItem(key) || "") : "";
 }
 
 function restoreDrafts() {
@@ -478,108 +601,338 @@ function restoreDrafts() {
   autoResizeAllPrompts();
 }
 
-/* ── Remote version fetch (GET from GAS) ──────────────────── */
+function loadVersions(promptType) {
+  const key = versionKeys[promptType];
+  if (!key) return [];
+  try {
+    return JSON.parse(localStorage.getItem(key) || "[]") || [];
+  } catch {
+    return [];
+  }
+}
+
+function saveVersions(promptType, versions) {
+  const key = versionKeys[promptType];
+  if (key) localStorage.setItem(key, JSON.stringify(versions || []));
+}
+
+function formatVersionLabel(v) {
+  const name = v.version_name || v.versionName || "Untitled";
+  const by = (v.created_by || v.createdBy) ? ` - ${v.created_by || v.createdBy}` : "";
+  const at = v.saved_at ? ` @ ${new Date(v.saved_at).toLocaleString()}` : "";
+  return `${name}${by}${at}`;
+}
+
+function refreshVersionMenus() {
+  Object.keys(versionKeys).forEach(type => {
+    const select = document.getElementById(`versions-${type}`);
+    if (!select) return;
+
+    const versions = loadVersions(type);
+    const prev = select.value;
+
+    select.innerHTML = "";
+    const first = document.createElement("option");
+    first.value = "";
+    first.textContent = "Load saved version...";
+    select.appendChild(first);
+
+    versions.slice().reverse().forEach(v => {
+      const opt = document.createElement("option");
+      opt.value = v.id;
+      opt.textContent = formatVersionLabel(v);
+      select.appendChild(opt);
+    });
+
+    if (prev) select.value = prev;
+  });
+}
+
+function loadVersionIntoPrompt(promptType, versionId) {
+  if (!versionId) return;
+  const versions = loadVersions(promptType);
+  const selected = versions.find(v => v.id === versionId);
+  if (!selected) return;
+
+  const el = document.getElementById(promptTypeMap[promptType]);
+  if (!el) return;
+
+  el.value = selected.prompt_text || selected.promptText || "";
+  saveDraft(promptType, el.value);
+  autoResize(el);
+  setStatus("success", "Loaded saved version");
+}
+
 async function fetchAndMergeVersions() {
-  setDebug('');
+  setDebug("");
   try {
     const qs = new URLSearchParams({ flow_id: getFlowId() });
     const res = await fetch(`${GAS_URL}?${qs.toString()}`);
     const raw = await res.text();
     if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.substring(0, 500)}`);
+
     const json = raw ? JSON.parse(raw) : {};
     if (json.error) throw new Error(json.error);
 
     const remote = (json.versions || []).map(v => ({
-      id: v.id || `${v.timestamp || Date.now()}-${v.promptType}`,
-      flow_id: v.flowId || '',
-      prompt_type: (v.promptType || '').toLowerCase(),
-      version_name: v.versionName || '',
-      comment: v.comment || '',
-      prompt_text: v.promptText || '',
-      created_by: v.createdBy || '',
-      saved_at: v.timestamp || ''
+      id: v.id || `${v.timestamp || Date.now()}-${v.promptType || "unknown"}`,
+      flow_id: v.flowId || "",
+      prompt_type: (v.promptType || "").toLowerCase(),
+      version_name: v.versionName || "",
+      comment: v.comment || "",
+      prompt_text: v.promptText || "",
+      created_by: v.createdBy || "",
+      saved_at: v.timestamp || ""
     }));
 
     Object.keys(versionKeys).forEach(type => {
       const remoteForType = remote.filter(r => r.prompt_type === type);
       const local = loadVersions(type);
-      // merge: remote first, then local, deduplicate by id
-      const merged = [...remoteForType, ...local]
-        .filter((v, i, a) => a.findIndex(x => x.id === v.id) === i);
+      const merged = [...remoteForType, ...local].filter((v, i, arr) => arr.findIndex(x => x.id === v.id) === i);
       saveVersions(type, merged);
     });
 
     refreshVersionMenus();
-    setStatus('success', 'Saved versions loaded');
-  } catch (e) {
-    refreshVersionMenus(); // still show local versions
-    setStatus('error', 'Failed to fetch saved versions');
-    setDebug(String(e?.message || e));
+    setStatus("success", "Saved versions loaded");
+  } catch (err) {
+    refreshVersionMenus();
+    setStatus("error", "Failed to fetch saved versions");
+    setDebug(String(err?.message || err));
   }
 }
 
-/* ── Timer ────────────────────────────────────────────────── */
-function startTimer() {
-  const start = Date.now();
-  timer.textContent = '⏱ 0s';
-  timerInterval = setInterval(() => {
-    timer.textContent = `⏱ ${Math.round((Date.now() - start) / 1000)}s`;
-  }, 1000);
-}
-function stopTimer() { clearInterval(timerInterval); }
-
-/* ── Load prompts from Langflow ───────────────────────────── */
 async function loadPrompts() {
   const key = apiKey.value.trim();
-  if (!key) { setStatus('error', 'API key required'); return; }
-  if (!getFlowId()) { setStatus('error', 'Flow ID required'); return; }
-  setStatus('loading', 'Loading prompts from Langflow…'); setDebug('');
+  if (!key) { setStatus("error", "API key required"); return; }
+  if (!getFlowId()) { setStatus("error", "Flow ID required"); return; }
+
+  setStatus("loading", "Loading prompts from Langflow...");
+  setDebug("");
+
   try {
     const res = await fetch(`${getBaseUrl()}/api/v1/flows/${getFlowId()}`, {
       headers: buildAuthHeaders(key)
     });
-    if (!res.ok) { const t = await res.text(); throw new Error(`HTTP ${res.status}: ${t.substring(0, 500)}`); }
+
+    if (!res.ok) {
+      const t = await res.text();
+      throw new Error(`HTTP ${res.status}: ${t.substring(0, 500)}`);
+    }
+
     const flow = await res.json();
-    const nodes = flow.data.nodes;
+    const nodes = flow?.data?.nodes || flow?.nodes || [];
+
+    const missing = [];
     PROMPTS.forEach(p => {
-      const n = nodes.find(x => x.id === p.node);
-      const val = n?.data?.node?.template?.template?.value
-        ?? n?.data?.node?.template?.value ?? '';
+      const node = nodes.find(n => n.id === p.node);
+      if (!node) missing.push(p.node);
+      const val =
+        node?.data?.node?.template?.template?.value ??
+        node?.data?.node?.template?.value ??
+        node?.data?.template?.template?.value ??
+        node?.data?.template?.value ??
+        "";
+
       const el = document.getElementById(p.id);
-      if (el) { el.value = val; saveDraft(p.type, val); }
+      if (!el) return;
+      el.value = val;
+      saveDraft(p.type, val);
     });
+
     autoResizeAllPrompts();
-    setStatus('success', 'Original prompts loaded');
-  } catch (e) {
-    setStatus('error', 'Failed to load prompts');
-    setDebug(String(e?.message || e));
+
+    if (missing.length) {
+      setDebug(`Missing prompt node IDs: ${missing.join(", ")}`);
+    }
+
+    setStatus("success", "Original prompts loaded");
+  } catch (err) {
+    setStatus("error", "Failed to load prompts");
+    setDebug(String(err?.message || err));
   }
 }
 
-/* ── Run flow ─────────────────────────────────────────────── */
+function cancelRun() {
+  if (!isRunning) return;
+  ignoreResult = true;
+  isRunning = false;
+  runBtn.disabled = false;
+  runBtn.textContent = "🚀 Run Flow";
+  cancelBtn.style.display = "none";
+  stopTimer();
+  setStatus("error", "Run cancelled by user");
+}
+
 async function runFlow() {
   if (isRunning) return;
+
   const key = apiKey.value.trim();
   const entity = entityId.value.trim();
-  if (!key)    { setStatus('error', 'API key required'); return; }
-  if (!entity) { setStatus('error', 'Property ID is required'); return; }
-  if (!getFlowId()) { setStatus('error', 'Flow ID required'); return; }
 
-  isRunning = true; ignoreResult = false;
-  runBtn.disabled = true; runBtn.textContent = '⏳ Running…';
-  cancelBtn.style.display = 'inline-block';
-  setStatus('loading', 'Running flow…'); setDebug('');
+  if (!key) { setStatus("error", "API key required"); return; }
+  if (!entity) { setStatus("error", "Property ID is required"); return; }
+  if (!getFlowId()) { setStatus("error", "Flow ID required"); return; }
+
+  isRunning = true;
+  ignoreResult = false;
+  runBtn.disabled = true;
+  runBtn.textContent = "⏳ Running...";
+  cancelBtn.style.display = "inline-block";
+  setStatus("loading", "Running flow...");
+  setDebug("");
   startTimer();
 
   try {
     const tweaks = {};
     PROMPTS.forEach(p => {
       const el = document.getElementById(p.id);
-      const val = el ? el.value.trim() : '';
-      if (val) tweaks[p.node] = { template: val };
+      const val = el ? el.value.trim() : "";
+      if (!val) return;
+      tweaks[p.node] = { template: val };
     });
 
     const res = await fetch(`${getBaseUrl()}/api/v1/run/${getFlowId()}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...buildAuthHeaders(key) },
-      body: JSON.stringify({ input_type:
+      method: "POST",
+      headers: { "Content-Type": "application/json", ...buildAuthHeaders(key) },
+      body: JSON.stringify({
+        input_type: "chat",
+        output_type: "chat",
+        input_value: entity,
+        tweaks
+      })
+    });
+
+    const raw = await res.text();
+    if (!res.ok) {
+      setDebug(raw);
+      throw new Error(`HTTP ${res.status}: ${raw.substring(0, 500)}`);
+    }
+
+    const data = raw ? JSON.parse(raw) : {};
+    if (ignoreResult) return;
+
+    const outputs = data?.outputs?.[0]?.outputs || [];
+    if (!outputs.length) setDebug("No outputs returned from Langflow run.");
+
+    OUTPUTS.forEach(spec => {
+      setOutput(spec.id, findOutput(outputs, spec));
+    });
+
+    setStatus("success", "Flow completed successfully");
+  } catch (err) {
+    if (!ignoreResult) {
+      setStatus("error", "Flow failed");
+      setDebug(String(err?.message || err));
+    }
+  } finally {
+    isRunning = false;
+    runBtn.disabled = false;
+    runBtn.textContent = "🚀 Run Flow";
+    cancelBtn.style.display = "none";
+    stopTimer();
+  }
+}
+
+function openSaveModal(type) {
+  currentPromptType = type;
+  versionName.value = "";
+  versionComment.value = "";
+  saveModal.style.display = "flex";
+}
+
+function closeSaveModalFn() {
+  saveModal.style.display = "none";
+  currentPromptType = null;
+}
+
+async function savePromptVersion() {
+  if (!currentPromptType) return;
+
+  const promptEl = document.getElementById(promptTypeMap[currentPromptType]);
+  const promptText = promptEl ? promptEl.value : "";
+  if (!promptText) {
+    setStatus("error", "Prompt is empty");
+    closeSaveModalFn();
+    return;
+  }
+
+  if (promptEl) saveDraft(currentPromptType, promptText);
+
+  const localVersion = {
+    id: `${Date.now()}-${currentPromptType}`,
+    flow_id: getFlowId(),
+    prompt_type: currentPromptType,
+    version_name: versionName.value.trim() || "Manual save",
+    comment: versionComment.value.trim(),
+    prompt_text: promptText,
+    created_by: createdBy.value.trim(),
+    saved_at: new Date().toISOString()
+  };
+
+  const local = loadVersions(currentPromptType);
+  local.push(localVersion);
+  saveVersions(currentPromptType, local);
+  refreshVersionMenus();
+
+  try {
+    const payload = {
+      project: "vacanceole",
+      flow_id: getFlowId(),
+      prompt_type: currentPromptType,
+      version_name: localVersion.version_name,
+      comment: localVersion.comment,
+      prompt_text: localVersion.prompt_text,
+      created_by: localVersion.created_by
+    };
+
+    const body = new URLSearchParams(payload);
+    const res = await fetch(GAS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+      body
+    });
+
+    const raw = await res.text();
+    if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.substring(0, 500)}`);
+    setStatus("success", "Saved prompt version");
+  } catch (err) {
+    setStatus("error", "Saved locally, remote save failed");
+    setDebug(String(err?.message || err));
+  } finally {
+    closeSaveModalFn();
+  }
+}
+
+["htPrompt", "ldPrompt", "sdPrompt"].forEach(id => {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.addEventListener("input", () => {
+    autoResize(el);
+    const promptType = Object.keys(promptTypeMap).find(k => promptTypeMap[k] === id);
+    if (promptType) saveDraft(promptType, el.value);
+  });
+});
+
+Object.keys(versionKeys).forEach(type => {
+  const select = document.getElementById(`versions-${type}`);
+  if (!select) return;
+  select.addEventListener("change", (e) => {
+    loadVersionIntoPrompt(type, e.target.value);
+  });
+});
+
+runBtn.addEventListener("click", runFlow);
+cancelBtn.addEventListener("click", cancelRun);
+loadBtn.addEventListener("click", loadPrompts);
+highlightBtn.addEventListener("click", toggleHighlight);
+closeModal.addEventListener("click", closeSaveModalFn);
+saveVersionBtn.addEventListener("click", savePromptVersion);
+
+window.addEventListener("DOMContentLoaded", async () => {
+  restoreDrafts();
+  refreshVersionMenus();
+  await fetchAndMergeVersions();
+});
+</script>
+</body>
+</html>
