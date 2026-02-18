@@ -6,29 +6,11 @@
   <title>Vacancéole Content Update Tester</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #1a1a2e;
-      color: #eee;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; padding: 20px; }
     .container { max-width: 1500px; margin: 0 auto; }
-
-    header {
-      background: linear-gradient(135deg, #4a6bd8 0%, #7a56b3 50%, #b14a7a 100%);
-      color: white;
-      padding: 24px 30px;
-      border-radius: 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
+    header { background: linear-gradient(135deg, #4a6bd8 0%, #7a56b3 50%, #b14a7a 100%); color: white; padding: 24px 30px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
     .header-left { display: flex; align-items: center; gap: 12px; }
-    .logo { width: 56px; height: 56px; object-fit: contain; background: transparent; padding: 0; }
+    .logo { width: 56px; height: 56px; object-fit: contain; }
     header h1 { font-size: 22px; }
     header p { opacity: 0.85; font-size: 13px; margin-top: 4px; }
 
@@ -41,57 +23,30 @@
 
     .form-group { display: flex; flex-direction: column; gap: 4px; }
     .form-group label { font-size: 11px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
-    .form-group input,
-    .form-group select { padding: 9px 12px; background: #0f3460; border: 1px solid #2a2a4a; border-radius: 6px; color: #eee; font-size: 13px; }
-    .form-group input:focus,
-    .form-group select:focus { outline: none; border-color: #667eea; }
+    .form-group input, .form-group select { padding: 9px 12px; background: #0f3460; border: 1px solid #2a2a4a; border-radius: 6px; color: #eee; font-size: 13px; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: #667eea; }
 
     .fg-base { flex: 2; min-width: 240px; }
     .fg-flow { flex: 1; min-width: 220px; }
     .fg-api  { flex: 2; min-width: 240px; }
     .fg-auth { flex: 1; min-width: 200px; }
 
-    button {
-      padding: 10px 24px;
-      border: none;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
+    button { padding: 10px 24px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
     button:hover { transform: translateY(-1px); }
     button:active { transform: translateY(0); }
     button:disabled { opacity: 0.45; cursor: default; transform: none; }
 
     .btn-run { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 36px; font-size: 14px; }
-    .btn-run:hover:not(:disabled) { box-shadow: 0 4px 15px rgba(102,126,234,0.4); }
-
-    .btn-cancel { background: #5f1e1e; color: #ef9a9a; padding: 10px 24px; display: none; }
-    .btn-cancel:hover { background: #7a2828; }
-
-    .btn-load { background: transparent; color: #667eea; border: 1px solid #667eea; padding: 10px 18px; }
+    .btn-cancel { background: #5f1e1e; color: #ef9a9a; display: none; }
+    .btn-load { background: transparent; color: #667eea; border: 1px solid #667eea; }
     .btn-load:hover { background: rgba(102,126,234,0.1); }
 
-    .btn-toggle { background: transparent; color: #f0c040; border: 1px solid #f0c040; padding: 8px 14px; }
-    .btn-toggle.active { background: rgba(240,192,64,0.15); box-shadow: 0 0 8px rgba(240,192,64,0.25); }
-
     .btn-save { background: transparent; color: #81c784; border: 1px solid #81c784; padding: 6px 10px; font-size: 11px; border-radius: 6px; }
-    .btn-save:hover { background: rgba(129,199,132,0.12); }
-
     .btn-copy { background: transparent; color: #a5b4fc; border: 1px solid #3a4b6f; padding: 6px 10px; font-size: 11px; border-radius: 6px; }
-    .btn-copy:hover { background: rgba(165,180,252,0.12); }
     .btn-copy.copied { color: #81c784; border-color: #81c784; background: rgba(129,199,132,0.12); }
-
-    .btn-small {
-      background: transparent;
-      color: #a5b4fc;
-      border: 1px solid #3a4b6f;
-      padding: 7px 10px;
-      font-size: 11px;
-      border-radius: 6px;
-    }
-    .btn-small:hover { background: rgba(165,180,252,0.12); }
+    .btn-toggle { background: transparent; color: #f0c040; border: 1px solid #f0c040; padding: 8px 14px; }
+    .btn-toggle.active { background: rgba(240,192,64,0.15); }
+    .version-select { background: #0f3460; border: 1px solid #2a2a4a; color: #ddd; border-radius: 6px; font-size: 11px; padding: 6px 8px; min-width: 180px; }
 
     .status-bar { width: 100%; padding: 10px 16px; border-radius: 6px; font-size: 13px; display: none; margin-top: 8px; }
     .status-bar.loading { display: block; background: rgba(33,150,243,0.15); color: #64b5f6; }
@@ -99,20 +54,16 @@
     .status-bar.error   { display: block; background: rgba(244,67,54,0.15); color: #ef9a9a; }
 
     .section-title { color: #a5b4fc; font-size: 16px; margin: 28px 0 12px 0; display: flex; align-items: center; gap: 8px; }
-
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
 
-    .card { background: #0f3460; border: 1px solid #2a2a4a; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-self: start; }
+    .card { background: #0f3460; border: 1px solid #2a2a4a; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; }
     .card h3 { font-size: 13px; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
     .card.original h3 { color: #64b5f6; }
-    .card.updated  h3 { color: #81c784; }
+    .card.updated h3 { color: #81c784; }
     .card.updated pre { background: #142a4a; }
 
-    .card pre,
-    .card textarea {
+    .card pre, .card textarea {
       min-height: 220px;
-      height: auto;
-      overflow: visible;
       white-space: pre-wrap;
       word-wrap: break-word;
       font-family: 'Courier New', monospace;
@@ -127,28 +78,13 @@
     }
 
     .card-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
-
-    .version-row { margin-top: 10px; display: flex; gap: 8px; align-items: center; }
-    .version-row select {
-      flex: 1;
-      min-width: 0;
-      padding: 8px 10px;
-      background: #142a4a;
-      border: 1px solid #2a2a4a;
-      border-radius: 6px;
-      color: #eee;
-      font-size: 12px;
-    }
-
     .fee-highlight { background: rgba(240,192,64,0.25); color: #f0c040; border-radius: 3px; padding: 0 2px; }
-
     .debug-panel { width: 100%; margin-top: 8px; background: #0f3460; border: 1px solid #2a2a4a; border-radius: 8px; padding: 10px; font-family: 'Courier New', monospace; font-size: 12px; color: #ddd; display: none; white-space: pre-wrap; max-height: 260px; overflow: auto; }
 
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(10, 12, 24, 0.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
-    .modal { width: 100%; max-width: 520px; background: #16213e; border: 1px solid #2a2a4a; border-radius: 12px; padding: 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.35); }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(10,12,24,.6); display: none; align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+    .modal { width: 100%; max-width: 520px; background: #16213e; border: 1px solid #2a2a4a; border-radius: 12px; padding: 18px; }
     .modal h3 { color: #a5b4fc; margin-bottom: 8px; font-size: 16px; }
-    .modal .form-group input,
-    .modal .form-group textarea { background: #0f3460; border: 1px solid #2a2a4a; color: #eee; border-radius: 6px; padding: 10px 12px; font-size: 13px; }
+    .modal .form-group input, .modal .form-group textarea { background: #0f3460; border: 1px solid #2a2a4a; color: #eee; border-radius: 6px; padding: 10px 12px; font-size: 13px; }
     .modal .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 12px; }
     .btn-secondary { background: #2a2a4a; color: #ddd; border: 1px solid #3a3a5a; }
 
@@ -158,7 +94,6 @@
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <header>
@@ -177,28 +112,28 @@
         <div class="controls-col controls-box left-controls">
           <div class="form-group">
             <label id="idLabel">Property ID</label>
-            <input id="entityId" type="text" value="" placeholder="e.g. 6364" />
+            <input id="entityId" type="text" value="6364" placeholder="e.g. 6364" />
           </div>
           <div class="left-actions">
             <button class="btn-run" id="runBtn">🚀 Run Flow</button>
             <button class="btn-cancel" id="cancelBtn">✖ Cancel</button>
             <button class="btn-load" id="loadBtn">📥 Load from Langflow</button>
-            <button class="btn-small" id="refreshVersionsBtn">↻ Refresh Saved Versions</button>
+            <button class="btn-load" id="refreshVersionsBtn">↻ Refresh Saved Versions</button>
           </div>
         </div>
 
         <div class="controls-col controls-box">
-          <div class="controls-row" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+          <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
             <div class="form-group fg-base">
               <label>Langflow Base URL</label>
               <input id="baseUrl" type="text" value="https://langflow-staging.leavetown.com" />
             </div>
             <div class="form-group fg-flow">
               <label>Flow ID</label>
-              <input id="flowId" type="text" value="" placeholder="Flow UUID" />
+              <input id="flowId" type="text" value="dee35898-a5bb-4214-9001-5940d98d39be" placeholder="Flow UUID" />
             </div>
           </div>
-          <div class="controls-row" style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
+          <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;">
             <div class="form-group fg-api">
               <label>Langflow API Key</label>
               <input id="apiKey" type="password" placeholder="Paste your Langflow API key" />
@@ -214,136 +149,74 @@
         </div>
       </div>
 
-      <div id="status" class="status-bar" role="status" aria-live="polite"></div>
+      <div id="status" class="status-bar"></div>
       <div id="debug" class="debug-panel"></div>
     </div>
 
     <div class="section-title">🧠 Editable Prompts</div>
-
-    <div id="prompts-property" class="grid">
+    <div class="grid">
       <div class="card">
         <div class="card-header">
           <h3>Home Truth Prompt (HT)</h3>
           <div style="display:flex; gap:8px;">
+            <select class="version-select" id="versions-home_truth"></select>
             <button class="btn-copy" onclick="copyFrom('htPrompt', this)">📋</button>
             <button class="btn-save" onclick="openSaveModal('home_truth')">💾 Save Version</button>
           </div>
         </div>
         <textarea id="htPrompt"></textarea>
-        <div class="version-row">
-          <select id="home_truth_versions"></select>
-          <button class="btn-small" onclick="loadSelectedVersion('home_truth')">Load</button>
-        </div>
       </div>
-
       <div class="card">
         <div class="card-header">
           <h3>Long Description Prompt (LD)</h3>
           <div style="display:flex; gap:8px;">
+            <select class="version-select" id="versions-long_description"></select>
             <button class="btn-copy" onclick="copyFrom('ldPrompt', this)">📋</button>
             <button class="btn-save" onclick="openSaveModal('long_description')">💾 Save Version</button>
           </div>
         </div>
         <textarea id="ldPrompt"></textarea>
-        <div class="version-row">
-          <select id="long_description_versions"></select>
-          <button class="btn-small" onclick="loadSelectedVersion('long_description')">Load</button>
-        </div>
       </div>
-
       <div class="card">
         <div class="card-header">
           <h3>Short Description Prompt (SD)</h3>
           <div style="display:flex; gap:8px;">
+            <select class="version-select" id="versions-short_description"></select>
             <button class="btn-copy" onclick="copyFrom('sdPrompt', this)">📋</button>
             <button class="btn-save" onclick="openSaveModal('short_description')">💾 Save Version</button>
           </div>
         </div>
         <textarea id="sdPrompt"></textarea>
-        <div class="version-row">
-          <select id="short_description_versions"></select>
-          <button class="btn-small" onclick="loadSelectedVersion('short_description')">Load</button>
-        </div>
       </div>
     </div>
 
-    <div class="section-title">
-      🧪 Test Results
-      <button class="btn-toggle" id="highlightBtn" style="margin-left:8px;">🔎 Highlight Terms</button>
+    <div class="section-title">🧪 Test Results <button class="btn-toggle" id="highlightBtn" style="margin-left:8px;">🔎 Highlight Terms</button></div>
+
+    <div class="section-title">🏠 Home Truth (HT)</div>
+    <div class="grid">
+      <div class="card original"><div class="card-header"><h3>Original HT</h3><button class="btn-copy" onclick="copyFrom('origHT', this)">📋</button></div><pre id="origHT">Waiting for flow...</pre></div>
+      <div class="card updated"><div class="card-header"><h3>Updated HT</h3><button class="btn-copy" onclick="copyFrom('updatedHT', this)">📋</button></div><pre id="updatedHT">Waiting for flow...</pre></div>
     </div>
 
-    <div id="results-property">
-      <div class="section-title">🏠 Home Truth (HT)</div>
-      <div class="grid">
-        <div class="card original">
-          <div class="card-header">
-            <h3>Original HT</h3>
-            <button class="btn-copy" onclick="copyFrom('origHT', this)">📋</button>
-          </div>
-          <pre id="origHT">Waiting for flow...</pre>
-        </div>
-        <div class="card updated">
-          <div class="card-header">
-            <h3>Updated HT</h3>
-            <button class="btn-copy" onclick="copyFrom('updatedHT', this)">📋</button>
-          </div>
-          <pre id="updatedHT">Waiting for flow...</pre>
-        </div>
-      </div>
+    <div class="section-title">📝 Long Description (LD)</div>
+    <div class="grid">
+      <div class="card original"><div class="card-header"><h3>Original LD</h3><button class="btn-copy" onclick="copyFrom('origLD', this)">📋</button></div><pre id="origLD">Waiting for flow...</pre></div>
+      <div class="card updated"><div class="card-header"><h3>Updated LD</h3><button class="btn-copy" onclick="copyFrom('updatedLD', this)">📋</button></div><pre id="updatedLD">Waiting for flow...</pre></div>
+    </div>
 
-      <div class="section-title">📝 Long Description (LD)</div>
-      <div class="grid">
-        <div class="card original">
-          <div class="card-header">
-            <h3>Original LD</h3>
-            <button class="btn-copy" onclick="copyFrom('origLD', this)">📋</button>
-          </div>
-          <pre id="origLD">Waiting for flow...</pre>
-        </div>
-        <div class="card updated">
-          <div class="card-header">
-            <h3>Updated LD</h3>
-            <button class="btn-copy" onclick="copyFrom('updatedLD', this)">📋</button>
-          </div>
-          <pre id="updatedLD">Waiting for flow...</pre>
-        </div>
-      </div>
-
-      <div class="section-title">📝 Short Description (SD)</div>
-      <div class="grid">
-        <div class="card original">
-          <div class="card-header">
-            <h3>Original SD</h3>
-            <button class="btn-copy" onclick="copyFrom('origSD', this)">📋</button>
-          </div>
-          <pre id="origSD">Waiting for flow...</pre>
-        </div>
-        <div class="card updated">
-          <div class="card-header">
-            <h3>Updated SD</h3>
-            <button class="btn-copy" onclick="copyFrom('updatedSD', this)">📋</button>
-          </div>
-          <pre id="updatedSD">Waiting for flow...</pre>
-        </div>
-      </div>
+    <div class="section-title">📝 Short Description (SD)</div>
+    <div class="grid">
+      <div class="card original"><div class="card-header"><h3>Original SD</h3><button class="btn-copy" onclick="copyFrom('origSD', this)">📋</button></div><pre id="origSD">Waiting for flow...</pre></div>
+      <div class="card updated"><div class="card-header"><h3>Updated SD</h3><button class="btn-copy" onclick="copyFrom('updatedSD', this)">📋</button></div><pre id="updatedSD">Waiting for flow...</pre></div>
     </div>
   </div>
 
-  <div id="saveModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="saveTitle">
+  <div id="saveModal" class="modal-backdrop">
     <div class="modal">
-      <h3 id="saveTitle">Save Prompt Version</h3>
-      <div class="form-group">
-        <label>Version Name</label>
-        <input id="versionName" type="text" placeholder="e.g. v1 - remove fees carefully" />
-      </div>
-      <div class="form-group" style="margin-top:10px;">
-        <label>Comment</label>
-        <textarea id="versionComment" rows="4" placeholder="What changed and why?"></textarea>
-      </div>
-      <div class="form-group" style="margin-top:10px;">
-        <label>Created By</label>
-        <input id="createdBy" type="text" placeholder="Your name or initials" />
-      </div>
+      <h3>Save Prompt Version</h3>
+      <div class="form-group"><label>Version Name</label><input id="versionName" type="text" /></div>
+      <div class="form-group" style="margin-top:10px;"><label>Comment</label><textarea id="versionComment" rows="4"></textarea></div>
+      <div class="form-group" style="margin-top:10px;"><label>Created By</label><input id="createdBy" type="text" /></div>
       <div class="actions">
         <button class="btn-secondary" id="closeModal">Cancel</button>
         <button class="btn-run" id="saveVersionBtn">Save</button>
@@ -352,479 +225,256 @@
   </div>
 
   <script>
-    const GAS_URL = 'https://script.google.com/a/macros/jetstreamtech.io/s/AKfycbwkybjhql7EDzFFG-JYss340KwmkazPTWELbalVC5j2-CbM0ud4iGT-Cci4Th8RxabN-g/exec';
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbx-_bKf-L-XtkP0aaKWaZN3YeQgl_r_Zdn9zdyQoBwT4EoA3sC11NmHcRCb2XOQdtWQXA/exec';
     const PROJECT = 'vacanceole';
 
-    const idLabel = document.getElementById('idLabel');
-    const entityId = document.getElementById('entityId');
-    const baseUrl = document.getElementById('baseUrl');
-    const flowId = document.getElementById('flowId');
-    const apiKey = document.getElementById('apiKey');
-    const authMode = document.getElementById('authMode');
-    const runBtn = document.getElementById('runBtn');
-    const cancelBtn = document.getElementById('cancelBtn');
-    const loadBtn = document.getElementById('loadBtn');
-    const highlightBtn = document.getElementById('highlightBtn');
-    const refreshVersionsBtn = document.getElementById('refreshVersionsBtn');
-    const status = document.getElementById('status');
-    const debug = document.getElementById('debug');
-    const timer = document.getElementById('timer');
-    const saveModal = document.getElementById('saveModal');
-    const versionName = document.getElementById('versionName');
-    const versionComment = document.getElementById('versionComment');
-    const createdBy = document.getElementById('createdBy');
-    const closeModal = document.getElementById('closeModal');
-    const saveVersionBtn = document.getElementById('saveVersionBtn');
+    const el = id => document.getElementById(id);
+    const entityId = el('entityId'), baseUrl = el('baseUrl'), flowId = el('flowId'), apiKey = el('apiKey'), authMode = el('authMode');
+    const runBtn = el('runBtn'), cancelBtn = el('cancelBtn'), loadBtn = el('loadBtn'), refreshVersionsBtn = el('refreshVersionsBtn');
+    const highlightBtn = el('highlightBtn'), status = el('status'), debug = el('debug'), timer = el('timer');
+    const saveModal = el('saveModal'), versionName = el('versionName'), versionComment = el('versionComment'), createdBy = el('createdBy');
+    const closeModal = el('closeModal'), saveVersionBtn = el('saveVersionBtn');
 
-    const FLOW_CONFIG = {
-      property: {
-        label: 'Property ID',
-        flowId: 'dee35898-a5bb-4214-9001-5940d98d39be',
-        prompts: [
-          { id: 'htPrompt', type: 'home_truth', node: 'Prompt Template-9r1K1', name: 'HomeTruth Cleaner Prompt' },
-          { id: 'ldPrompt', type: 'long_description', node: 'Prompt Template-AVk4F', name: 'Long Description Cleaner Prompt' },
-          { id: 'sdPrompt', type: 'short_description', node: 'Prompt Template-Bxpqm', name: 'Short Description Cleaner Prompt' }
-        ],
-        outputs: [
-          { id: 'origHT', componentId: 'ChatOutput-Fp0ki' },
-          { id: 'updatedHT', keys: ['updated', 'ht'] },
-          { id: 'origLD', componentId: 'ChatOutput-1WD38' },
-          { id: 'updatedLD', componentId: 'ChatOutput-iGPZo' },
-          { id: 'origSD', componentId: 'ChatOutput-h78H1' },
-          { id: 'updatedSD', keys: ['updated', 'shortdescription'] }
-        ]
+    const PROMPTS = [
+      { id: 'htPrompt', type: 'home_truth', node: 'Prompt Template-9r1K1', name: 'HomeTruth Cleaner Prompt' },
+      { id: 'ldPrompt', type: 'long_description', node: 'Prompt Template-AVk4F', name: 'Long Description Cleaner Prompt' },
+      { id: 'sdPrompt', type: 'short_description', node: 'Prompt Template-Bxpqm', name: 'Short Description Cleaner Prompt' }
+    ];
+
+    const OUTPUTS = [
+      { id: 'origHT', componentId: 'ChatOutput-Fp0ki', keys: ['original','ht'] },
+      { id: 'updatedHT', componentId: 'ChatOutput-18d66', keys: ['updated','ht'] },
+      { id: 'origLD', componentId: 'ChatOutput-1WD38', keys: ['original','longdescription'] },
+      { id: 'updatedLD', componentId: 'ChatOutput-iGPZo', keys: ['updated','longdescription'] },
+      { id: 'origSD', componentId: 'ChatOutput-h78H1', keys: ['original','shortdescription'] },
+      { id: 'updatedSD', componentId: 'ChatOutput-z0fR9', keys: ['updated','shortdescription'] }
+    ];
+
+    const promptTypeMap = { home_truth: 'htPrompt', long_description: 'ldPrompt', short_description: 'sdPrompt' };
+    const versionTypeList = ['home_truth', 'long_description', 'short_description'];
+
+    let timerInterval = null, isRunning = false, ignoreResult = false, currentPromptType = null, highlightOn = false;
+
+    const getBaseUrl = () => baseUrl.value.trim().replace(/\/+$/, '');
+    const getFlowId = () => flowId.value.trim();
+    const draftKey = type => `draft:${PROJECT}:${type}`;
+    const localVerKey = type => `versions:${PROJECT}:${type}`;
+
+    function setStatus(type, msg) { status.textContent = msg; status.className = 'status-bar' + (type ? ` ${type}` : ''); }
+    function setDebug(msg) { debug.style.display = msg ? 'block' : 'none'; debug.textContent = msg || ''; }
+    function buildAuthHeaders(key) { return authMode.value === 'bearer' ? { Authorization: `Bearer ${key}` } : { 'x-api-key': key }; }
+
+    function normalize(s) { return (s || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
+    function extractOutputText(m) {
+      return m?.results?.message?.text || m?.results?.message?.content || m?.results?.text || m?.results?.output || m?.message?.text || '';
+    }
+    function findOutput(outputs, spec) {
+      if (spec.componentId) {
+        const byId = outputs.find(o => o.component_id === spec.componentId);
+        const t = extractOutputText(byId);
+        if (t) return t;
       }
-    };
-
-    const promptTypeMap = {
-      home_truth: 'htPrompt',
-      long_description: 'ldPrompt',
-      short_description: 'sdPrompt'
-    };
-
-    const versionSelectMap = {
-      home_truth: 'home_truth_versions',
-      long_description: 'long_description_versions',
-      short_description: 'short_description_versions'
-    };
-
-    let currentFlow = 'property';
-    let isRunning = false;
-    let ignoreResult = false;
-    let timerInterval = null;
-    let currentPromptType = null;
-    let highlightOn = false;
-
-    const draftKeys = {
-      home_truth: 'draft:vacanceole:home_truth',
-      long_description: 'draft:vacanceole:long_description',
-      short_description: 'draft:vacanceole:short_description'
-    };
-
-    const versionCache = {
-      home_truth: [],
-      long_description: [],
-      short_description: []
-    };
-
-    function getBaseUrl() { return baseUrl.value.trim().replace(/\/+$/, ''); }
-    function getFlowId() { return flowId.value.trim(); }
-
-    function setFlow(flowKey) {
-      currentFlow = flowKey;
-      idLabel.textContent = FLOW_CONFIG[flowKey].label;
-      flowId.value = FLOW_CONFIG[flowKey].flowId || '';
-      restoreDrafts(flowKey);
-      autoResizeAllPrompts();
-    }
-
-    function setStatus(type, msg) {
-      status.textContent = msg;
-      status.className = 'status-bar' + (type ? ' ' + type : '');
-    }
-
-    function setDebug(msg) {
-      if (!msg) {
-        debug.style.display = 'none';
-        debug.textContent = '';
-        return;
-      }
-      debug.style.display = 'block';
-      debug.textContent = msg;
-    }
-
-    function buildAuthHeaders(key) {
-      return authMode.value === 'bearer' ? { Authorization: `Bearer ${key}` } : { 'x-api-key': key };
-    }
-
-    function normalize(str) { return (str || '').toLowerCase().replace(/[^a-z0-9]/g, ''); }
-
-    function extractOutputText(match) {
-      if (!match) return '';
-      return (
-        match?.results?.message?.text ||
-        match?.results?.message?.content ||
-        match?.results?.text ||
-        match?.results?.output ||
-        match?.results?.data?.text ||
-        (typeof match?.results?.data === 'string' ? match.results.data : '') ||
-        match?.message?.text ||
-        match?.message?.content ||
-        ''
-      );
-    }
-
-    function findOutput(outputs, mustInclude, componentId) {
-      if (componentId) {
-        const match = outputs.find(o => o.component_id === componentId);
-        const text = extractOutputText(match);
-        if (text) return text;
-      }
-      const keys = (mustInclude || []).map(normalize);
-      const match = outputs.find(o => {
-        const name = normalize(o.component_display_name);
-        const id = normalize(o.component_id);
-        return keys.every(k => name.includes(k) || id.includes(k));
+      const keys = (spec.keys || []).map(normalize);
+      const byKeys = outputs.find(o => {
+        const n = normalize(o.component_display_name), i = normalize(o.component_id);
+        return keys.every(k => n.includes(k) || i.includes(k));
       });
-      const text = extractOutputText(match);
-      return text || '—';
+      return extractOutputText(byKeys) || '—';
     }
 
     function setOutput(id, text) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.dataset.raw = text || '';
-      if (highlightOn) el.innerHTML = highlightFees(el.dataset.raw);
-      else el.textContent = el.dataset.raw || '—';
-    }
-
-    function toggleHighlight() {
-      highlightOn = !highlightOn;
-      highlightBtn.classList.toggle('active', highlightOn);
-      FLOW_CONFIG[currentFlow].outputs.forEach(o => {
-        const el = document.getElementById(o.id);
-        const raw = (el && (el.dataset.raw || el.textContent)) || '';
-        setOutput(o.id, raw);
-      });
-    }
-
-    function highlightFees(text) {
-      if (!text) return '';
-      const keywords = [
-        'serenite pack','serenity pack','serinity pack',
-        'sheet','sheets','linen','linens','bedding','towel','towels','linen/towel','pack',
-        'bed','beds','bed-making','bed making','beds made','made on arrival',
-        'cleaning','end-of-stay cleaning','end of stay cleaning','final cleaning','cleaning fee','cleaning fees',
-        'per bed','per pack','€','euro'
-      ];
-      const escaped = keywords.map(k => k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).sort((a, b) => b.length - a.length);
-      const wordRe = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
-      const withWords = text.replace(wordRe, '<span class="fee-highlight">$1</span>');
-      return withWords.replace(/€/g, '<span class="fee-highlight">€</span>');
-    }
-
-    async function copyFrom(id, btn) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const text = el.value !== undefined ? el.value : (el.dataset.raw || el.textContent || '');
-      const restore = () => { if (btn) { btn.textContent = '📋'; btn.classList.remove('copied'); } };
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        const ta = document.createElement('textarea');
-        ta.value = text;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
+      const node = el(id);
+      node.dataset.raw = text || '';
+      if (highlightOn) {
+        const terms = ['pack','cleaning','bed','beds','made on arrival','€','euro','fee'];
+        const rgx = new RegExp(`\\b(${terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'gi');
+        node.innerHTML = (node.dataset.raw || '—').replace(rgx, '<span class="fee-highlight">$1</span>').replace(/€/g, '<span class="fee-highlight">€</span>');
+      } else {
+        node.textContent = node.dataset.raw || '—';
       }
-      if (btn) {
-        btn.textContent = '📋 Copied!';
-        btn.classList.add('copied');
-        setTimeout(restore, 1200);
-      }
-      setStatus('success', 'Copied!');
     }
+
+    function autoResize(t) { if (!t) return; t.style.height = 'auto'; t.style.height = `${t.scrollHeight}px`; }
+    function saveDraft(type, val) { localStorage.setItem(draftKey(type), val || ''); }
+    function loadDraft(type) { return localStorage.getItem(draftKey(type)) || ''; }
 
     function startTimer() {
-      const start = Date.now();
+      const s = Date.now();
       timer.textContent = '⏱ 0s';
-      timerInterval = setInterval(() => {
-        const s = Math.round((Date.now() - start) / 1000);
-        timer.textContent = `⏱ ${s}s`;
-      }, 1000);
+      timerInterval = setInterval(() => { timer.textContent = `⏱ ${Math.round((Date.now() - s) / 1000)}s`; }, 1000);
     }
-
     function stopTimer() { clearInterval(timerInterval); }
 
-    function autoResize(el) {
-      if (!el) return;
-      el.style.height = 'auto';
-      el.style.height = `${el.scrollHeight}px`;
+    async function copyFrom(id, btn) {
+      const node = el(id);
+      const txt = node.value !== undefined ? node.value : (node.dataset.raw || node.textContent || '');
+      try { await navigator.clipboard.writeText(txt); } catch {}
+      if (btn) { btn.textContent = '📋 Copied!'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 1000); }
+      setStatus('success', 'Copied');
     }
+    window.copyFrom = copyFrom;
 
-    function autoResizeAllPrompts() {
-      ['htPrompt','ldPrompt','sdPrompt'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el && el.offsetParent !== null) autoResize(el);
+    function openSaveModal(type) { currentPromptType = type; versionName.value = ''; versionComment.value = ''; saveModal.style.display = 'flex'; }
+    function closeSaveModalFn() { saveModal.style.display = 'none'; currentPromptType = null; }
+    window.openSaveModal = openSaveModal;
+
+    function readLocalVersions(type) {
+      try { return JSON.parse(localStorage.getItem(localVerKey(type)) || '[]'); } catch { return []; }
+    }
+    function writeLocalVersions(type, arr) { localStorage.setItem(localVerKey(type), JSON.stringify(arr || [])); }
+
+    function populateVersionSelect(type, list) {
+      const s = el(`versions-${type}`);
+      if (!s) return;
+      s.innerHTML = '';
+      const d = document.createElement('option');
+      d.value = ''; d.textContent = 'Load saved version...'; s.appendChild(d);
+      list.forEach(v => {
+        const o = document.createElement('option');
+        o.value = v.id;
+        o.textContent = `${v.versionName || 'Untitled'}${v.createdBy ? ' - ' + v.createdBy : ''}`;
+        s.appendChild(o);
       });
     }
 
-    function saveDraft(promptType, textVal) {
-      const key = draftKeys[promptType];
-      if (key) localStorage.setItem(key, textVal || '');
-    }
-
-    function loadDraft(promptType) {
-      const key = draftKeys[promptType];
-      return key ? (localStorage.getItem(key) || '') : '';
-    }
-
-    function restoreDrafts(flowKey) {
-      const cfg = FLOW_CONFIG[flowKey];
-      cfg.prompts.forEach(p => {
-        const el = document.getElementById(p.id);
-        if (!el) return;
-        const draft = loadDraft(p.type);
-        if (draft) el.value = draft;
-      });
-      autoResizeAllPrompts();
-    }
-
-    function normalizeVersionRow(v) {
-      return {
-        timestamp: v.timestamp || v.created_at || v.date || '',
+    async function fetchRemoteVersions() {
+      const qs = new URLSearchParams({ project: PROJECT, flow_id: getFlowId() });
+      const res = await fetch(`${GAS_URL}?${qs.toString()}`);
+      const txt = await res.text();
+      if (!res.ok) throw new Error(`HTTP ${res.status}: ${txt.slice(0, 400)}`);
+      const json = txt ? JSON.parse(txt) : {};
+      if (json.error) throw new Error(json.error);
+      return (json.versions || []).map(v => ({
+        id: v.id || `${v.timestamp || Date.now()}-${v.promptType || v.prompt_type}`,
         flowId: v.flowId || v.flow_id || '',
-        project: (v.project || '').toLowerCase(),
         promptType: (v.promptType || v.prompt_type || '').toLowerCase(),
         versionName: v.versionName || v.version_name || '',
         comment: v.comment || '',
         promptText: v.promptText || v.prompt_text || '',
         createdBy: v.createdBy || v.created_by || ''
-      };
+      }));
     }
 
-    function fillVersionSelect(promptType, rows) {
-      const select = document.getElementById(versionSelectMap[promptType]);
-      if (!select) return;
-      select.innerHTML = '';
-
-      if (!rows.length) {
-        const opt = document.createElement('option');
-        opt.value = '';
-        opt.textContent = 'No saved versions';
-        select.appendChild(opt);
-        return;
-      }
-
-      rows.forEach((r, idx) => {
-        const opt = document.createElement('option');
-        opt.value = String(idx);
-        const name = r.versionName || '(no version name)';
-        const who = r.createdBy || 'unknown';
-        const when = r.timestamp ? new Date(r.timestamp).toLocaleString() : 'no date';
-        opt.textContent = `${name} • ${who} • ${when}`;
-        select.appendChild(opt);
-      });
-    }
-
-    async function refreshVersions() {
+    async function refreshSavedVersions() {
+      setDebug('');
       try {
-        setStatus('loading', 'Loading saved versions...');
-        const qs = new URLSearchParams({
-          project: PROJECT,
-          flow_id: getFlowId() || ''
+        const remote = await fetchRemoteVersions();
+        versionTypeList.forEach(type => {
+          const local = readLocalVersions(type);
+          const merged = [...remote.filter(r => r.promptType === type), ...local]
+            .filter((v, i, a) => a.findIndex(x => x.id === v.id) === i)
+            .slice(0, 100);
+          writeLocalVersions(type, merged);
+          populateVersionSelect(type, merged);
         });
-        const res = await fetch(`${GAS_URL}?${qs.toString()}`);
-        const raw = await res.text();
-        let data = {};
-        try { data = raw ? JSON.parse(raw) : {}; } catch { throw new Error(`Non-JSON response from GAS: ${raw.slice(0, 300)}`); }
-
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.slice(0, 500)}`);
-        if (data.error) throw new Error(String(data.error));
-
-        const allRows = (data.versions || []).map(normalizeVersionRow);
-
-        ['home_truth','long_description','short_description'].forEach(type => {
-          versionCache[type] = allRows.filter(v => {
-            if (v.project && v.project !== PROJECT) return false;
-            if (v.promptType !== type) return false;
-            if (getFlowId() && v.flowId && v.flowId !== getFlowId()) return false;
-            return true;
-          });
-          fillVersionSelect(type, versionCache[type]);
-        });
-
         setStatus('success', 'Saved versions loaded');
       } catch (e) {
-        setStatus('error', 'Failed to load saved versions');
-        setDebug(String(e && e.message ? e.message : e));
+        versionTypeList.forEach(type => populateVersionSelect(type, readLocalVersions(type)));
+        setStatus('error', 'Failed to fetch saved versions');
+        setDebug(String(e.message || e));
       }
     }
 
-    function loadSelectedVersion(promptType) {
-      const select = document.getElementById(versionSelectMap[promptType]);
-      const input = document.getElementById(promptTypeMap[promptType]);
-      if (!select || !input) return;
-
-      const idx = parseInt(select.value, 10);
-      if (Number.isNaN(idx) || !versionCache[promptType] || !versionCache[promptType][idx]) {
-        setStatus('error', 'No version selected');
-        return;
-      }
-
-      const version = versionCache[promptType][idx];
-      input.value = version.promptText || '';
-      saveDraft(promptType, input.value);
-      autoResize(input);
-      setStatus('success', 'Version loaded into editor');
+    function onVersionSelected(type, id) {
+      if (!id) return;
+      const list = readLocalVersions(type);
+      const v = list.find(x => x.id === id);
+      if (!v) return;
+      const target = el(promptTypeMap[type]);
+      target.value = v.promptText || '';
+      saveDraft(type, target.value);
+      autoResize(target);
+      setStatus('success', 'Version loaded');
+      el(`versions-${type}`).value = '';
     }
 
     async function loadPrompts() {
       const key = apiKey.value.trim();
-      if (!key) { setStatus('error', 'API key required'); return; }
-      if (!getFlowId()) { setStatus('error', 'Flow ID required'); return; }
+      if (!key) return setStatus('error', 'API key required');
+      if (!getFlowId()) return setStatus('error', 'Flow ID required');
 
       setStatus('loading', 'Loading prompts from Langflow...');
       setDebug('');
 
       try {
         const res = await fetch(`${getBaseUrl()}/api/v1/flows/${getFlowId()}`, { headers: buildAuthHeaders(key) });
-        const raw = await res.text();
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.slice(0, 500)}`);
-
-        const flow = raw ? JSON.parse(raw) : {};
+        const txt = await res.text();
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${txt.slice(0, 400)}`);
+        const flow = txt ? JSON.parse(txt) : {};
         const nodes = flow?.data?.nodes || flow?.data?.data?.nodes || flow?.nodes || [];
-        const cfg = FLOW_CONFIG[currentFlow];
-        const missing = [];
 
-        cfg.prompts.forEach(p => {
+        PROMPTS.forEach(p => {
           const n = nodes.find(x => x.id === p.node) || nodes.find(x => x?.data?.node?.display_name === p.name);
-          const val =
-            n?.data?.node?.template?.template?.value ??
-            n?.data?.node?.template?.value ??
-            n?.data?.template?.template?.value ??
-            n?.data?.template?.value ??
-            '';
-          if (!n) missing.push(p.node);
-
-          const el = document.getElementById(p.id);
-          if (el) {
-            el.value = val;
-            saveDraft(p.type, val);
-            autoResize(el);
-          }
+          const val = n?.data?.node?.template?.template?.value ?? n?.data?.node?.template?.value ?? n?.data?.template?.template?.value ?? n?.data?.template?.value ?? '';
+          const t = el(p.id);
+          t.value = val;
+          saveDraft(p.type, val);
+          autoResize(t);
         });
 
-        if (missing.length) {
-          const available = nodes.map(n => n.id).filter(Boolean).slice(0, 40);
-          setDebug(`Missing prompt node IDs: ${missing.join(', ')}\nAvailable node IDs (first 40): ${available.join(', ')}`);
-        }
-
-        setStatus('success', 'Original prompts loaded');
+        setStatus('success', 'Prompts loaded');
       } catch (e) {
         setStatus('error', 'Failed to load prompts');
-        setDebug(String(e && e.message ? e.message : e));
+        setDebug(String(e.message || e));
       }
-    }
-
-    function cancelRun() {
-      if (!isRunning) return;
-      ignoreResult = true;
-      isRunning = false;
-      runBtn.disabled = false;
-      runBtn.textContent = '🚀 Run Flow';
-      cancelBtn.style.display = 'none';
-      stopTimer();
-      setStatus('error', 'Run cancelled by user');
     }
 
     async function runFlow() {
       if (isRunning) return;
-
       const key = apiKey.value.trim();
-      const entity = entityId.value.trim();
-      if (!key) { setStatus('error', 'API key required'); return; }
-      if (!entity) { setStatus('error', `${FLOW_CONFIG[currentFlow].label} is required`); return; }
-      if (!getFlowId()) { setStatus('error', 'Flow ID required'); return; }
+      if (!key) return setStatus('error', 'API key required');
+      if (!entityId.value.trim()) return setStatus('error', 'Property ID required');
+      if (!getFlowId()) return setStatus('error', 'Flow ID required');
 
-      isRunning = true;
-      ignoreResult = false;
-      runBtn.disabled = true;
-      runBtn.textContent = '⏳ Running...';
-      cancelBtn.style.display = 'inline-block';
-      setStatus('loading', 'Running flow...');
-      setDebug('');
-      startTimer();
+      isRunning = true; ignoreResult = false;
+      runBtn.disabled = true; runBtn.textContent = '⏳ Running...'; cancelBtn.style.display = 'inline-block';
+      setStatus('loading', 'Running flow...'); setDebug(''); startTimer();
 
       try {
         const tweaks = {};
-        FLOW_CONFIG[currentFlow].prompts.forEach(p => {
-          const el = document.getElementById(p.id);
-          const val = el ? el.value.trim() : '';
-          if (val) tweaks[p.node] = { template: val };
+        PROMPTS.forEach(p => {
+          const v = el(p.id).value.trim();
+          if (v) tweaks[p.node] = { template: v };
         });
 
         const res = await fetch(`${getBaseUrl()}/api/v1/run/${getFlowId()}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', ...buildAuthHeaders(key) },
-          body: JSON.stringify({ input_type: 'chat', output_type: 'chat', input_value: entity, tweaks })
+          body: JSON.stringify({ input_type: 'chat', output_type: 'chat', input_value: entityId.value.trim(), tweaks })
         });
 
-        const raw = await res.text();
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.slice(0, 800)}`);
-
-        const data = raw ? JSON.parse(raw) : {};
+        const txt = await res.text();
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${txt.slice(0, 700)}`);
+        const json = txt ? JSON.parse(txt) : {};
         if (ignoreResult) return;
 
-        const outputs = data?.outputs?.[0]?.outputs || [];
-        if (!outputs.length) setDebug('No outputs returned from Langflow run.');
-
-        FLOW_CONFIG[currentFlow].outputs.forEach(o => {
-          setOutput(o.id, findOutput(outputs, o.keys || [], o.componentId));
-        });
-
-        setStatus('success', 'Flow completed successfully');
+        const outputs = json?.outputs?.[0]?.outputs || [];
+        OUTPUTS.forEach(spec => setOutput(spec.id, findOutput(outputs, spec)));
+        setStatus('success', 'Flow completed');
       } catch (e) {
-        if (!ignoreResult) {
-          setStatus('error', 'Flow failed');
-          setDebug(String(e && e.message ? e.message : e));
-        }
+        if (!ignoreResult) { setStatus('error', 'Flow failed'); setDebug(String(e.message || e)); }
       } finally {
         isRunning = false;
-        runBtn.disabled = false;
-        runBtn.textContent = '🚀 Run Flow';
-        cancelBtn.style.display = 'none';
+        runBtn.disabled = false; runBtn.textContent = '🚀 Run Flow'; cancelBtn.style.display = 'none';
         stopTimer();
       }
     }
 
-    function openSaveModal(type) {
-      currentPromptType = type;
-      versionName.value = '';
-      versionComment.value = '';
-      saveModal.style.display = 'flex';
-    }
-
-    function closeSaveModal() {
-      saveModal.style.display = 'none';
-      currentPromptType = null;
+    function cancelRun() {
+      if (!isRunning) return;
+      ignoreResult = true; isRunning = false;
+      runBtn.disabled = false; runBtn.textContent = '🚀 Run Flow'; cancelBtn.style.display = 'none';
+      stopTimer(); setStatus('error', 'Run cancelled');
     }
 
     async function savePromptVersion() {
       if (!currentPromptType) return;
+      const target = el(promptTypeMap[currentPromptType]);
+      const promptText = target.value || '';
+      if (!promptText.trim()) { setStatus('error', 'Prompt is empty'); closeSaveModalFn(); return; }
 
-      const el = document.getElementById(promptTypeMap[currentPromptType]);
-      const promptText = el ? el.value : '';
-      if (!promptText) {
-        setStatus('error', 'Prompt is empty');
-        closeSaveModal();
-        return;
-      }
-
-      if (el) saveDraft(currentPromptType, promptText);
-
-      const payload = {
+      const row = {
+        id: String(Date.now()),
         project: PROJECT,
         flow_id: getFlowId(),
         prompt_type: currentPromptType,
@@ -838,49 +488,71 @@
         const res = await fetch(GAS_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: new URLSearchParams(payload)
+          body: new URLSearchParams(row)
         });
-
-        const raw = await res.text();
-        let parsed = {};
-        try { parsed = raw ? JSON.parse(raw) : {}; } catch { parsed = {}; }
-
-        if (!res.ok) throw new Error(`HTTP ${res.status}: ${raw.slice(0, 500)}`);
-        if (parsed.error) throw new Error(String(parsed.error));
+        const txt = await res.text();
+        if (!res.ok) throw new Error(`HTTP ${res.status}: ${txt.slice(0, 400)}`);
+        const parsed = txt ? JSON.parse(txt) : {};
+        if (parsed.error) throw new Error(parsed.error);
 
         setStatus('success', 'Saved to spreadsheet');
-        await refreshVersions();
       } catch (e) {
         setStatus('error', 'Failed to save prompt version');
-        setDebug(String(e && e.message ? e.message : e));
+        setDebug(String(e.message || e));
       } finally {
-        closeSaveModal();
+        const local = readLocalVersions(currentPromptType);
+        local.unshift({
+          id: row.id,
+          flowId: row.flow_id,
+          promptType: row.prompt_type,
+          versionName: row.version_name,
+          comment: row.comment,
+          promptText: row.prompt_text,
+          createdBy: row.created_by
+        });
+        writeLocalVersions(currentPromptType, local);
+        populateVersionSelect(currentPromptType, local);
+        closeSaveModalFn();
       }
     }
 
     ['htPrompt','ldPrompt','sdPrompt'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener('input', () => {
-        autoResize(el);
-        const promptType = Object.keys(promptTypeMap).find(k => promptTypeMap[k] === id);
-        if (promptType) saveDraft(promptType, el.value);
+      const t = el(id);
+      t.addEventListener('input', () => {
+        autoResize(t);
+        const type = Object.keys(promptTypeMap).find(k => promptTypeMap[k] === id);
+        if (type) saveDraft(type, t.value);
+      });
+    });
+
+    highlightBtn.addEventListener('click', () => {
+      highlightOn = !highlightOn;
+      highlightBtn.classList.toggle('active', highlightOn);
+      OUTPUTS.forEach(spec => {
+        const n = el(spec.id);
+        setOutput(spec.id, n.dataset.raw || n.textContent || '');
       });
     });
 
     runBtn.addEventListener('click', runFlow);
     cancelBtn.addEventListener('click', cancelRun);
     loadBtn.addEventListener('click', loadPrompts);
-    highlightBtn.addEventListener('click', toggleHighlight);
-    refreshVersionsBtn.addEventListener('click', refreshVersions);
-    closeModal.addEventListener('click', closeSaveModal);
+    refreshVersionsBtn.addEventListener('click', refreshSavedVersions);
+    closeModal.addEventListener('click', closeSaveModalFn);
     saveVersionBtn.addEventListener('click', savePromptVersion);
 
-    flowId.addEventListener('change', refreshVersions);
+    versionTypeList.forEach(type => {
+      el(`versions-${type}`).addEventListener('change', e => onVersionSelected(type, e.target.value));
+    });
 
     window.addEventListener('DOMContentLoaded', async () => {
-      setFlow('property');
-      await refreshVersions();
+      PROMPTS.forEach(p => {
+        const t = el(p.id);
+        const d = loadDraft(p.type);
+        if (d) t.value = d;
+        autoResize(t);
+      });
+      await refreshSavedVersions();
     });
   </script>
 </body>
