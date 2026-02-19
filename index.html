@@ -426,9 +426,9 @@
         label: 'Property ID',
         flowId: 'dee35898-a5bb-4214-9001-5940d98d39be',
         prompts: [
-          { id: 'htPrompt', type: 'home_truth', node: 'Prompt Template-9r1K1' },
-          { id: 'ldPrompt', type: 'long_description', node: 'Prompt Template-AVk4F' },
-          { id: 'sdPrompt', type: 'short_description', node: 'Prompt Template-Bxpqm' }
+          { id: 'htPrompt', type: 'home_truth', node: 'Prompt Template-rbOsE' },
+          { id: 'ldPrompt', type: 'long_description', node: 'Prompt Template-AJFxd' },
+          { id: 'sdPrompt', type: 'short_description', node: 'Prompt Template-wVOVY' }
         ],
         outputs: [
           { id: 'origHT', componentId: 'ChatOutput-VRLWh' },
@@ -721,6 +721,7 @@
         autoResize(el);
         const t = Object.keys(promptTypeMap).find(k => promptTypeMap[k] === id);
         if (t) saveDraft(t, el.value);
+       
       });
     });
 
